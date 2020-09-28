@@ -36,22 +36,12 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
-    def insert_after_node(self, prev_node: Node, data: str) -> None:
-        if not prev_node:
-            print("Previous node is not in the list")
-            return
-
-        new_node = Node(data)
-
-        new_node.next = prev_node.next
-        prev_node.next = new_node
-
-    def insert_after_node_str(self, prev_node_data: str, data: str) -> None:
+    def insert_after_node(self, prev_node: str, data: str) -> None:
         new_node = Node(data)
         cur_node = self.head
 
         # Find the node with data == prev_node_data
-        while(cur_node is not None and cur_node.data != prev_node_data):
+        while cur_node and cur_node.data != prev_node:
             cur_node = cur_node.next
 
         if cur_node is None:  # We can't find the node
@@ -62,23 +52,77 @@ class LinkedList:
         new_node.next = cur_node.next
         cur_node.next = new_node
 
+    def delete_ndoe(self, data: str) -> None:
+        """
+        Two cases: 
+        1. node to be deleted is head 
+        2. node to be deleted is not head
+        """
+        cur_node = self.head
+
+        # Case 1: delete head node
+        if cur_node and cur_node.data == data:
+            self.head = cur_node.next
+            cur_node = None
+            return
+
+        # Else Case 2: delete non-head node
+        prev = None
+        while cur_node and cur_node.data != data:
+            prev = cur_node
+            cur_node = cur_node.next
+
+        if cur_node is None:  # The node is not present in the list
+            return
+
+        # Delete cur_node
+        prev.next = cur_node.next
+        cur_node = None
+
+    def delete_node_at_pos(self, pos):
+        cur_node = self.head
+
+        # If deleting head, i.e. pos == 0:
+        if pos == 0:
+            self.head = cur_node.next
+            cur_node = None
+            return
+
+        # Else:
+        prev = None
+        count = 0
+        while cur_node and count != pos:
+            prev = cur_node
+            cur_node = cur_node.next
+            count += 1
+
+        if cur_node is None:
+            return
+
+        # Delete cur_node
+        prev.next = cur_node.next
+        cur_node = None
+
 
 llist = LinkedList()
+
 llist.append('A')
 llist.append('B')
 llist.append('C')
 llist.append('D')
+llist.print_list()  # A -> B -> C -> D
+
 llist.prepend('E')
 llist.print_list()  # E -> A -> B -> C -> D
 
-# Insert another Node after Node B, where Node B is head.next.next
-node_b = llist.head.next.next
-llist.insert_after_node(node_b, 'F')
+llist.insert_after_node("B", 'F')
 llist.print_list()  # E -> A -> B -> F -> C -> D
 
-# Insert Node with given data
-llist.insert_after_node_str("B", 'G')
-llist.print_list()  # E -> A -> B  -> G -> F -> C -> D
+llist.delete_ndoe('E')
+llist.print_list()  # A -> B -> F -> C -> D
 
-llist.insert_after_node_str("H", 'G')
-llist.print_list()  # E -> A -> B  -> G -> F -> C -> D
+llist.delete_node_at_pos(0)
+llist.print_list()  # B -> F -> C -> D
+
+llist.delete_node_at_pos(1)
+llist.print_list()  # B -> C -> D
