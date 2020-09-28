@@ -10,13 +10,14 @@ class LinkedList:
         super().__init__()
         self.head = None
 
-    def print_list(self):
+    def print_list(self) -> None:
         cur_node = self.head
         while cur_node:
             print(cur_node.data, '-> ', end="")
             cur_node = cur_node.next
+        print('\n')
 
-    def append(self, data):
+    def append(self, data: str) -> None:
         new_node = Node(data)
 
         # First check if the current list is empty
@@ -30,14 +31,54 @@ class LinkedList:
             last_node = last_node.next
         last_node.next = new_node
 
-    def prepend(self, data):
+    def prepend(self, data: str) -> None:
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
+
+    def insert_after_node(self, prev_node: Node, data: str) -> None:
+        if not prev_node:
+            print("Previous node is not in the list")
+            return
+
+        new_node = Node(data)
+
+        new_node.next = prev_node.next
+        prev_node.next = new_node
+
+    def insert_after_node_str(self, prev_node_data: str, data: str) -> None:
+        new_node = Node(data)
+        cur_node = self.head
+
+        # Find the node with data == prev_node_data
+        while(cur_node is not None and cur_node.data != prev_node_data):
+            cur_node = cur_node.next
+
+        if cur_node is None:  # We can't find the node
+            print("Previous node is not in the list")
+            return
+
+        # Otherwise we find the node with data == prev_node_data
+        new_node.next = cur_node.next
+        cur_node.next = new_node
 
 
 llist = LinkedList()
 llist.append('A')
 llist.append('B')
+llist.append('C')
+llist.append('D')
 llist.prepend('E')
-llist.print_list()
+llist.print_list()  # E -> A -> B -> C -> D
+
+# Insert another Node after Node B, where Node B is head.next.next
+node_b = llist.head.next.next
+llist.insert_after_node(node_b, 'F')
+llist.print_list()  # E -> A -> B -> F -> C -> D
+
+# Insert Node with given data
+llist.insert_after_node_str("B", 'G')
+llist.print_list()  # E -> A -> B  -> G -> F -> C -> D
+
+llist.insert_after_node_str("H", 'G')
+llist.print_list()  # E -> A -> B  -> G -> F -> C -> D
