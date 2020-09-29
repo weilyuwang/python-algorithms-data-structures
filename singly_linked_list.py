@@ -160,6 +160,11 @@ class LinkedList:
         # Then swap the nodes behind the two nodes
         curr_1.next, curr_2.next = curr_2.next, curr_1.next
 
+        # Above is the same as below:
+        # temp = curr_1.next
+        # curr_1.next = curr_2.next
+        # curr_2.next = temp
+
 
 llist = LinkedList()
 
