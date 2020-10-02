@@ -50,7 +50,7 @@ class Solution:
 
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
-        For sorted linked list only:
+        For sorted linked list only
         """
 
         if not head:
