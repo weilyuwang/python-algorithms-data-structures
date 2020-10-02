@@ -133,15 +133,19 @@ class LinkedList:
             prev_1 = curr_1
             curr_1 = curr_1.next
 
-        # Search for node 1 (curr_2) for key_2
+        # Return if the node can't be found
+        if not curr_1:
+            return
+
+        # Search for node 2 (curr_2) for key_2
         prev_2 = None
         curr_2 = self.head
         while curr_2 and curr_2.data != key_2:
             prev_2 = curr_2
             curr_2 = curr_2.next
 
-        # Check if the two nodes both exist
-        if not curr_1 or not curr_2:
+        # Return if the node can't be found
+        if not curr_2:
             return
 
         # Swap:
@@ -160,10 +164,22 @@ class LinkedList:
         # Then swap the nodes behind the two nodes
         curr_1.next, curr_2.next = curr_2.next, curr_1.next
 
-        # Above is the same as below:
-        # temp = curr_1.next
-        # curr_1.next = curr_2.next
-        # curr_2.next = temp
+    def reverse(self):
+        """
+        A -> B -> C -> D -> None
+        None <- A <- B <- C <- D 
+        """
+        # Keep track of prev and curr node
+        prev = None
+        cur = self.head
+        while cur:
+            # Flipping arrows while moving along
+            temp_next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp_next
+        # Remember to reset the head
+        self.head = prev  # cur is None when the while loop breaks
 
 
 llist = LinkedList()
@@ -190,5 +206,5 @@ llist.print_list()  # F -> A -> C -> B -> D ->
 llist.delete_node_at_pos(2)
 llist.print_list()  # F -> A -> B -> D ->
 
-print(llist.len_iterative())
-print(llist.len_recursive(llist.head))
+llist.reverse()
+llist.print_list()
