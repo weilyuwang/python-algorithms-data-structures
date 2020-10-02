@@ -1,13 +1,11 @@
 class Node:
     def __init__(self, data):
-        super().__init__()
         self.data = data
         self.next = None
 
 
 class LinkedList:
     def __init__(self):
-        super().__init__()
         self.head = None
 
     def print_list(self) -> None:
@@ -164,7 +162,7 @@ class LinkedList:
         # Then swap the nodes behind the two nodes
         curr_1.next, curr_2.next = curr_2.next, curr_1.next
 
-    def reverse(self):
+    def reverse_iterative(self):
         """
         A -> B -> C -> D -> None
         None <- A <- B <- C <- D 
@@ -180,6 +178,45 @@ class LinkedList:
             cur = temp_next
         # Remember to reset the head
         self.head = prev  # cur is None when the while loop breaks
+
+    def reverse_recursive(self):
+        """
+        Recursively reverse the linked list
+        """
+        def _reverse_recursive(cur, prev):
+            if not cur:
+                return prev
+
+            temp_next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp_next
+            _reverse_recursive(cur, prev)
+
+        self.head = _reverse_recursive(cur=self.head, prev=None)
+
+    def remove_duplicates(self):
+        """
+        Original list:
+        1 -> 6 -> 1 -> 4 -> 2 -> 2 -> 4 -> None
+
+        Remove duplicates:
+        1 -> 6 -> 4 -> 2 -> None
+        """
+        cur = self.head
+        prev = None
+
+        dup_values = dict()
+        while cur:
+            if cur.data in dup_values:
+                # Remove/Skip the current/duplicated node:
+                prev.next = cur.next
+            else:
+                # If have not encountered the element before
+                dup_values[cur.data] = 1
+                prev = cur
+
+            cur = cur.next
 
 
 llist = LinkedList()
@@ -206,5 +243,13 @@ llist.print_list()  # F -> A -> C -> B -> D ->
 llist.delete_node_at_pos(2)
 llist.print_list()  # F -> A -> B -> D ->
 
-llist.reverse()
+llist.reverse_iterative()
+llist.print_list()
+
+llist.append('D')
+llist.append('G')
+llist.append('A')
+llist.append('F')
+llist.print_list()
+llist.remove_duplicates()
 llist.print_list()
