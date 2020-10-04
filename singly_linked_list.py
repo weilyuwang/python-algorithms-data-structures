@@ -218,6 +218,23 @@ class LinkedList:
 
             cur = cur.next
 
+    def print_nth_from_last(self, n):
+        # Method 1:
+        # Calculate the length of linked list
+        total_len = self.len_iterative()
+        # Count down
+        cur = self.head
+        while cur:
+            if total_len == n:
+                print(cur.data)
+                return cur
+
+            total_len -= 1
+            cur = cur.next
+
+        if not cur:
+            return None
+
 
 llist = LinkedList()
 
@@ -253,3 +270,5 @@ llist.append('F')
 llist.print_list()
 llist.remove_duplicates()
 llist.print_list()
+
+llist.print_nth_from_last(3)
