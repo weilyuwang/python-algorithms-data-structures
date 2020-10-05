@@ -219,21 +219,49 @@ class LinkedList:
             cur = cur.next
 
     def print_nth_from_last(self, n):
-        # Method 1:
-        # Calculate the length of linked list
-        total_len = self.len_iterative()
-        # Count down
-        cur = self.head
-        while cur:
-            if total_len == n:
-                print(f"{n}th to the last node is: {cur.data}\n")
-                return cur
+        '''
+        Method 1:
+        Calculate the length of linked list first then count down
+        '''
+        # total_len = self.len_iterative()
+        # cur = self.head
+        # while cur:
+        #     if total_len == n:
+        #         print(f"{n}th to the last node is: {cur.data}\n")
+        #         return cur
 
-            total_len -= 1
-            cur = cur.next
+        #     total_len -= 1
+        #     cur = cur.next
 
-        if not cur:
-            return None
+        # if not cur:
+        #     return None
+
+        '''
+        Method 2:
+        Two pointers: fast & slow pointer
+        fast pointer is n nodes ahead of slow pointer
+        if fast pointer reaches to the end of the list,
+        then it means that the slow pointer must point to the nth-to-last node
+        '''
+        fast = self.head
+        slow = self.head
+
+        # Move fast pointer n steps ahead of slow pointer
+        count = 0
+        while fast and count < n:
+            fast = fast.next
+            count += 1
+
+        if not fast:
+            print(f"{n} is greater than the length of the linked list!")
+            return
+
+        while fast:
+            slow = slow.next
+            fast = fast.next
+
+        print(f"The {n}th-to-last node is {slow.data}\n")
+        return slow.data
 
     def rotate(self, k):
         """
