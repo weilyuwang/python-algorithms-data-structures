@@ -43,7 +43,6 @@ class DoublyLinkedList:
             new_node.next = self.head
 
             # Mark new head node
-            new_node.prev = None
             self.head = new_node
 
     def print_list(self):
@@ -60,4 +59,4 @@ dllist.append(2)
 dllist.append(3)
 dllist.append(4)
 dllist.prepend(5)
-dllist.print_list()
+dllist.print_list()  # 5 -> 1 -> 2 -> 3 -> 4
