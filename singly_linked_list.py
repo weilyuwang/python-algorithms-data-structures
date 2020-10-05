@@ -15,7 +15,7 @@ class LinkedList:
             cur_node = cur_node.next
         print('\n')
 
-    def append(self, data: str) -> None:
+    def append(self, data) -> None:
         new_node = Node(data)
 
         # First check if the current list is empty
@@ -29,12 +29,12 @@ class LinkedList:
             last_node = last_node.next
         last_node.next = new_node
 
-    def prepend(self, data: str) -> None:
+    def prepend(self, data) -> None:
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
 
-    def insert_after_node(self, prev_node: str, data: str) -> None:
+    def insert_after_node(self, prev_node, data) -> None:
         new_node = Node(data)
         cur_node = self.head
 
@@ -50,7 +50,7 @@ class LinkedList:
         new_node.next = cur_node.next
         cur_node.next = new_node
 
-    def delete_ndoe(self, data: str) -> None:
+    def delete_ndoe(self, data) -> None:
         """
         Two cases: 
         1. node to be deleted is head 
@@ -117,7 +117,7 @@ class LinkedList:
 
         return 1 + self.len_recursive(node.next)
 
-    def swap_nodes(self, key_1: str, key_2: str) -> None:
+    def swap_nodes(self, key_1, key_2) -> None:
         """
         Assume data entries are unique
         """
@@ -272,43 +272,43 @@ class LinkedList:
         p.next = None  # p is the new end
 
 
-llist = LinkedList()
+# llist = LinkedList()
 
-llist.append('A')
-llist.append('B')
-llist.append('C')
-llist.append('D')
-llist.print_list()  # A -> B -> C -> D
+# llist.append('A')
+# llist.append('B')
+# llist.append('C')
+# llist.append('D')
+# llist.print_list()  # A -> B -> C -> D
 
-llist.prepend('E')
-llist.print_list()  # E -> A -> B -> C -> D
+# llist.prepend('E')
+# llist.print_list()  # E -> A -> B -> C -> D
 
-llist.insert_after_node("B", 'F')
-llist.print_list()  # E -> A -> B -> F -> C -> D
-llist.swap_nodes('B', 'C')
-llist.print_list()  # E -> A -> C -> F -> B -> D ->
-llist.swap_nodes('E', 'F')
-llist.print_list()  # F -> A -> C -> E -> B -> D ->
+# llist.insert_after_node("B", 'F')
+# llist.print_list()  # E -> A -> B -> F -> C -> D
+# llist.swap_nodes('B', 'C')
+# llist.print_list()  # E -> A -> C -> F -> B -> D ->
+# llist.swap_nodes('E', 'F')
+# llist.print_list()  # F -> A -> C -> E -> B -> D ->
 
-llist.delete_ndoe('E')
-llist.print_list()  # F -> A -> C -> B -> D ->
+# llist.delete_ndoe('E')
+# llist.print_list()  # F -> A -> C -> B -> D ->
 
-llist.delete_node_at_pos(2)
-llist.print_list()  # F -> A -> B -> D ->
+# llist.delete_node_at_pos(2)
+# llist.print_list()  # F -> A -> B -> D ->
 
-llist.reverse_iterative()
-llist.print_list()
+# llist.reverse_iterative()
+# llist.print_list()
 
-llist.append('D')
-llist.append('G')
-llist.append('A')
-llist.append('F')
-llist.print_list()
-llist.remove_duplicates()
-llist.print_list()
+# llist.append('D')
+# llist.append('G')
+# llist.append('A')
+# llist.append('F')
+# llist.print_list()
+# llist.remove_duplicates()
+# llist.print_list()
 
-llist.print_nth_from_last(3)
+# llist.print_nth_from_last(3)
 
-llist.print_list()
-llist.rotate(3)
-llist.print_list()
+# llist.print_list()
+# llist.rotate(3)
+# llist.print_list()

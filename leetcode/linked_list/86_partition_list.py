@@ -25,8 +25,8 @@ class Solution:
         # before and after are the two pointers used to create two list
         # before_head and after_head are used to save the heads of the two lists.
         # All of these are initialized with the dummy nodes created.
-        before = before_head = ListNode(-1)
-        after = after_head = ListNode(-1)
+        before = before_dummy = ListNode(-1)
+        after = after_dummy = ListNode(-1)
 
         while head:
             if head.val < x:
@@ -39,6 +39,7 @@ class Solution:
             head = head.next
 
         after.next = None
-        before.next = after_head.next
+        # Join before and after together
+        before.next = after_dummy.next
 
-        return before_head.next
+        return before_dummy.next
