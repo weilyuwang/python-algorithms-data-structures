@@ -9,11 +9,11 @@ class LinkedList:
         self.head = None
 
     def print_list(self) -> None:
-        cur_node = self.head
-        while cur_node:
-            print(cur_node.data, '-> ', end="")
-            cur_node = cur_node.next
-        print('\n')
+        cur = self.head
+        while cur and cur.next:
+            print(cur.data, '-> ', end="")
+            cur = cur.next
+        print(cur.data)
 
     def append(self, data) -> None:
         new_node = Node(data)
@@ -260,7 +260,7 @@ class LinkedList:
             slow = slow.next
             fast = fast.next
 
-        print(f"The {n}th-to-last node is {slow.data}\n")
+        print(f"The {n}th-to-last node is {slow.data}")
         return slow.data
 
     def rotate(self, k):
@@ -300,43 +300,43 @@ class LinkedList:
         p.next = None  # p is the new end
 
 
-# llist = LinkedList()
+llist = LinkedList()
 
-# llist.append('A')
-# llist.append('B')
-# llist.append('C')
-# llist.append('D')
-# llist.print_list()  # A -> B -> C -> D
+llist.append('A')
+llist.append('B')
+llist.append('C')
+llist.append('D')
+llist.print_list()  # A -> B -> C -> D
 
-# llist.prepend('E')
-# llist.print_list()  # E -> A -> B -> C -> D
+llist.prepend('E')
+llist.print_list()  # E -> A -> B -> C -> D
 
-# llist.insert_after_node("B", 'F')
-# llist.print_list()  # E -> A -> B -> F -> C -> D
-# llist.swap_nodes('B', 'C')
-# llist.print_list()  # E -> A -> C -> F -> B -> D ->
-# llist.swap_nodes('E', 'F')
-# llist.print_list()  # F -> A -> C -> E -> B -> D ->
+llist.insert_after_node("B", 'F')
+llist.print_list()  # E -> A -> B -> F -> C -> D
+llist.swap_nodes('B', 'C')
+llist.print_list()  # E -> A -> C -> F -> B -> D ->
+llist.swap_nodes('E', 'F')
+llist.print_list()  # F -> A -> C -> E -> B -> D ->
 
-# llist.delete_ndoe('E')
-# llist.print_list()  # F -> A -> C -> B -> D ->
+llist.delete_ndoe('E')
+llist.print_list()  # F -> A -> C -> B -> D ->
 
-# llist.delete_node_at_pos(2)
-# llist.print_list()  # F -> A -> B -> D ->
+llist.delete_node_at_pos(2)
+llist.print_list()  # F -> A -> B -> D ->
 
-# llist.reverse_iterative()
-# llist.print_list()
+llist.reverse_iterative()
+llist.print_list()
 
-# llist.append('D')
-# llist.append('G')
-# llist.append('A')
-# llist.append('F')
-# llist.print_list()
-# llist.remove_duplicates()
-# llist.print_list()
+llist.append('D')
+llist.append('G')
+llist.append('A')
+llist.append('F')
+llist.print_list()
+llist.remove_duplicates()
+llist.print_list()
 
-# llist.print_nth_from_last(3)
+llist.print_nth_from_last(3)
 
-# llist.print_list()
-# llist.rotate(3)
-# llist.print_list()
+llist.print_list()
+llist.rotate(3)
+llist.print_list()
