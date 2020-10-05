@@ -226,7 +226,7 @@ class LinkedList:
         cur = self.head
         while cur:
             if total_len == n:
-                print(cur.data)
+                print(f"{n}th to the last node is: {cur.data}\n")
                 return cur
 
             total_len -= 1
@@ -234,6 +234,42 @@ class LinkedList:
 
         if not cur:
             return None
+
+    def rotate(self, k):
+        """
+        rotate the list to right, with respect to the kth node (the pivot)
+        i.e. shift all the nodes after kth node to the front of the list
+        e.g.
+        1 -> 2 -> 3 -> 4 -> 5 -> 6 -> None
+                       p         q
+        k = 4
+        result:
+        5 -> 6 -> 1 -> 2 -> 3 -> 4 -> None
+        """
+        p = self.head  # p: kth node
+        q = self.head  # q: last node
+
+        prev = None
+        count = 0
+        while p and count < k:
+            prev = p
+            p = p.next
+            q = q.next
+            count += 1
+        p = prev
+        # Now p points to the kth node
+
+        while q:
+            prev = q
+            q = q.next
+
+        q = prev
+        # Now q points to the last node
+
+        # the last node (q) is now linked to the original head
+        q.next = self.head
+        self.head = p.next  # the new head is the (k+1)th node - p.next
+        p.next = None  # p is the new end
 
 
 llist = LinkedList()
@@ -272,3 +308,7 @@ llist.remove_duplicates()
 llist.print_list()
 
 llist.print_nth_from_last(3)
+
+llist.print_list()
+llist.rotate(3)
+llist.print_list()
