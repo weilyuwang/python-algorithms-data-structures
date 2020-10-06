@@ -45,6 +45,48 @@ class DoublyLinkedList:
             # Mark new head node
             self.head = new_node
 
+    def add_after_node(self, key, data):
+        """
+        Add data after key
+        """
+        cur = self.head
+        while cur:
+            # If found the node with value == key
+            if cur.data == key:
+                if cur.next is None:  # If it is the last node
+                    self.append(data)
+                    return
+                else:
+                    new_node = Node(data)
+                    nxt = cur.next  # Need to store the next node
+                    cur.next = new_node
+                    new_node.next = nxt
+                    nxt.prev = new_node
+                    new_node.prev = cur
+            # Keep searching for key
+            cur = cur.next
+
+    def add_before_node(self, key, data):
+        """
+        Add data before key
+        """
+        cur = self.head
+        while cur:
+            # If found key
+            if cur.data == key:
+                if cur.prev is None:  # if key is the head node
+                    self.prepend(data)  # Simply prepend the data
+                    return
+                else:
+                    new_node = Node(data)
+                    prev = cur.prev  # Need to store the previous node
+                    new_node.next = cur
+                    prev.next = new_node
+                    cur.prev = new_node
+                    new_node.prev = prev
+            # Keep searching for key
+            cur = cur.next
+
     def print_list(self):
         cur = self.head
         while cur and cur.next:
@@ -60,3 +102,9 @@ dllist.append(3)
 dllist.append(4)
 dllist.prepend(5)
 dllist.print_list()  # 5 -> 1 -> 2 -> 3 -> 4
+dllist.add_after_node(3, 10)
+dllist.print_list()  # 5 -> 1 -> 2 -> 3 -> 10 -> 4
+dllist.add_after_node(4, 7)
+dllist.print_list()  # 5 -> 1 -> 2 -> 3 -> 10 -> 4 -> 7
+dllist.add_before_node(2, 6)
+dllist.print_list()  # 5 -> 1 -> 6 -> 2 -> 3 -> 10 -> 4 -> 7
