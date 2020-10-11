@@ -9,6 +9,13 @@ class DoublyLinkedList:
     def __init__(self):
         self.head = None
 
+    def print_list(self):
+        cur = self.head
+        while cur and cur.next:
+            print(cur.data, '-> ', end="")
+            cur = cur.next
+        print(cur.data)
+
     def append(self, data) -> None:
         """
         Add new node of val data to the end of the list
@@ -87,12 +94,60 @@ class DoublyLinkedList:
             # Keep searching for key
             cur = cur.next
 
-    def print_list(self):
+    def delete(self, key):
         cur = self.head
-        while cur and cur.next:
-            print(cur.data, '-> ', end="")
+        while cur:
+            # if found the key
+            if cur.data == key:
+                # if the node to delete is the head
+                if cur == self.head:
+                    # Case 1: if the head is the only node
+                    if not cur.next:
+                        self.head = None
+
+                        # Clear cur node
+                        cur = None
+
+                        return
+                    # Case 2: if the head has 1 or more nodes behind
+                    else:
+                        nxt = cur.next
+
+                        self.head = nxt
+                        nxt.prev = None
+
+                        # Clear cur node and the nodes it was pointing to
+                        cur.next = None
+                        cur = None
+
+                        return
+                 # If the node to delete is not head node
+                else:
+                    # Case 3: the node is not the last node, i.e. cur.next is not None
+                    if cur.next:
+                        nxt = cur.next
+                        prev = cur.prev
+                        prev.next = nxt
+                        nxt.prev = prev
+
+                        # Clear cur node and the nodes it was pointing to
+                        cur.next = None
+                        cur.prev = None
+                        cur = None
+
+                        return
+                    # Case 4: if the node is the last node, i.e. cur.next is None
+                    else:
+                        prev = cur.prev
+                        prev.next = None
+
+                        # Clear cur node and the nodes it was pointing to
+                        cur.prev = None
+                        cur = None
+
+                        return
+            # Keep searching for the key
             cur = cur.next
-        print(cur.data)
 
 
 dllist = DoublyLinkedList()
@@ -108,3 +163,11 @@ dllist.add_after_node(4, 7)
 dllist.print_list()  # 5 -> 1 -> 2 -> 3 -> 10 -> 4 -> 7
 dllist.add_before_node(2, 6)
 dllist.print_list()  # 5 -> 1 -> 6 -> 2 -> 3 -> 10 -> 4 -> 7
+dllist.delete(5)
+dllist.print_list()  # 1 -> 6 -> 2 -> 3 -> 10 -> 4 -> 7
+dllist.delete(6)
+dllist.print_list()  # 1 -> 2 -> 3 -> 10 -> 4 -> 7
+dllist.delete(7)
+dllist.print_list()  # 1 -> 2 -> 3 -> 10 -> 4
+dllist.delete(10)
+dllist.print_list()  # 1 -> 2 -> 3 -> 4
