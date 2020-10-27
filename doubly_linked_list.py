@@ -149,6 +149,19 @@ class DoublyLinkedList:
             # Keep searching for the key
             cur = cur.next
 
+    def reverse(self):
+        tmp = None
+        cur = self.head
+        while cur:
+            tmp = cur.prev
+            cur.prev = cur.next
+            cur.next = tmp
+            # Move to next - note that now the next node is cur.prev not cur.next
+            cur = cur.prev
+        if tmp:
+            # set new head
+            self.head = tmp.prev
+
 
 dllist = DoublyLinkedList()
 dllist.append(1)
@@ -171,3 +184,5 @@ dllist.delete(7)
 dllist.print_list()  # 1 -> 2 -> 3 -> 10 -> 4
 dllist.delete(10)
 dllist.print_list()  # 1 -> 2 -> 3 -> 4
+dllist.reverse()
+dllist.print_list()  # 4 -> 3 -> 2 -> 1
