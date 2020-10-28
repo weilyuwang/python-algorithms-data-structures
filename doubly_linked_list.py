@@ -149,6 +149,61 @@ class DoublyLinkedList:
             # Keep searching for the key
             cur = cur.next
 
+    def delete_node(self, node: Node):
+        cur = self.head
+        while cur:
+            # if found the node
+            if cur == node:
+                # if the node to delete is the head
+                if cur == self.head:
+                    # Case 1: if the head is the only node
+                    if not cur.next:
+                        self.head = None
+
+                        # Clear cur node
+                        cur = None
+
+                        return
+                    # Case 2: if the head has 1 or more nodes behind
+                    else:
+                        nxt = cur.next
+
+                        self.head = nxt
+                        nxt.prev = None
+
+                        # Clear cur node and the nodes it was pointing to
+                        cur.next = None
+                        cur = None
+
+                        return
+                 # If the node to delete is not head node
+                else:
+                    # Case 3: the node is not the last node, i.e. cur.next is not None
+                    if cur.next:
+                        nxt = cur.next
+                        prev = cur.prev
+                        prev.next = nxt
+                        nxt.prev = prev
+
+                        # Clear cur node and the nodes it was pointing to
+                        cur.next = None
+                        cur.prev = None
+                        cur = None
+
+                        return
+                    # Case 4: if the node is the last node, i.e. cur.next is None
+                    else:
+                        prev = cur.prev
+                        prev.next = None
+
+                        # Clear cur node and the nodes it was pointing to
+                        cur.prev = None
+                        cur = None
+
+                        return
+            # Keep searching for the key
+            cur = cur.next
+
     def reverse(self):
         tmp = None
         cur = self.head
@@ -161,6 +216,18 @@ class DoublyLinkedList:
         if tmp:
             # set new head
             self.head = tmp.prev
+
+    def remove_duplicates(self):
+        cur = self.head
+        seen = dict()
+        while cur:
+            if cur.data not in seen:
+                seen[cur.data] = 1
+                cur = cur.next
+            else:
+                nxt = cur.next
+                self.delete_node(cur)
+                cur = nxt
 
 
 dllist = DoublyLinkedList()
@@ -186,3 +253,10 @@ dllist.delete(10)
 dllist.print_list()  # 1 -> 2 -> 3 -> 4
 dllist.reverse()
 dllist.print_list()  # 4 -> 3 -> 2 -> 1
+dllist.append(1)
+dllist.append(2)
+dllist.append(5)
+dllist.append(4)
+dllist.print_list()  # 4 -> 3 -> 2 -> 1 -> 1 -> 2 -> 5 -> 4
+dllist.remove_duplicates()
+dllist.print_list()  # 4 -> 3 -> 2 -> 1 -> 5
