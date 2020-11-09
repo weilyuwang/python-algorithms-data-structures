@@ -151,6 +151,21 @@ class BinaryTree(object):
 
         return traversal
 
+    def height(self):
+        '''
+        Recursively calculate the height of each node
+        '''
+        def height_helper(node: Node):
+            if node is None:
+                return -1
+
+            left_height = height_helper(node.left)
+            right_height = height_helper(node.right)
+
+            return 1 + max(left_height, right_height)
+
+        return height_helper(self.root)
+
 
 '''
        1
@@ -173,3 +188,4 @@ print(tree.print_tree("preorder"))
 print(tree.print_tree("inorder"))
 print(tree.print_tree("postorder"))
 print(tree.print_tree("levelorder"))
+print(tree.height())
