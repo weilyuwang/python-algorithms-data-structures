@@ -170,10 +170,7 @@ class BinaryTree(object):
         def size_helper(node: Node):
             if node is None:
                 return 0
-            left_size = size_helper(node.left)
-            right_size = size_helper(node.right)
-
-            return 1 + left_size + right_size
+            return 1 + size_helper(node.left) + size_helper(node.right)
 
         return size_helper(self.root)
 
