@@ -166,6 +166,36 @@ class BinaryTree(object):
 
         return height_helper(self.root)
 
+    def size_recursive(self):
+        def size_helper(node: Node):
+            if node is None:
+                return 0
+            left_size = size_helper(node.left)
+            right_size = size_helper(node.right)
+
+            return 1 + left_size + right_size
+
+        return size_helper(self.root)
+
+    def size_iterative(self):
+        if self.root is None:
+            return 0
+
+        stack = deque()
+        stack.append(self.root)
+        size = 1
+
+        while stack:
+            node = stack.pop()
+            if node.left:
+                size += 1
+                stack.append(node.left)
+            if node.right:
+                size += 1
+                stack.append(node.right)
+
+        return size
+
 
 '''
        1
@@ -188,4 +218,8 @@ print(tree.print_tree("preorder"))
 print(tree.print_tree("inorder"))
 print(tree.print_tree("postorder"))
 print(tree.print_tree("levelorder"))
+
+print('\nHeight of the tree:')
 print(tree.height())
+print(tree.size_iterative())
+print(tree.size_recursive())
