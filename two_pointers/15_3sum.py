@@ -44,6 +44,7 @@ class Solution:
 
         return result
 
+    # Two Sum with two pointers approach
     def twoSum(self, nums: List[int], i: int, result: List[List[int]]) -> None:
         lo, hi = i + 1, len(nums) - 1
         while lo < hi:
