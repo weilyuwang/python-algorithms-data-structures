@@ -29,6 +29,7 @@ Note:
 1 <= people[i] <= limit <= 30000
 
 '''
+from typing import List
 
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
@@ -36,8 +37,8 @@ class Solution:
         i, j = 0, len(people) - 1
         ans = 0
         while i <= j:
-            ans += 1
             if people[i] + people[j] <= limit:
                 i += 1
+            ans += 1
             j -= 1
         return ans
