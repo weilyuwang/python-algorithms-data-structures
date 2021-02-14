@@ -53,12 +53,18 @@ At most 3 * 104 calls will be made to get and put.
 
 '''
 Hash map + doubly linked list
+
+The problem can be solved with a hashmap that keeps track of the keys and its values in the double linked list. 
+That results in O(1) time for put and get operations and allows to remove the first added node in O(1) time as well.
 '''
 class LRUCacheWithHashMapAndDLL:
 
     class Node:
         def __init__(self, key, val):
             self.key, self.val = key, val
+
+            # pseudo head and pseudo tail to mark the boundary, 
+            # so that we don't need to check the null node during the update.
             self.prev = self.next = None
                 
 
@@ -105,5 +111,27 @@ class LRUCacheWithHashMapAndDLL:
 
 
 
+'''
+There is a structure called ordered dictionary, it combines behind both hashmap and linked list. 
+In Python this structure is called OrderedDict and in Java LinkedHashMap.
+'''
+from collections import OrderedDict
 
+class LRUCacheWithOrderedDict(OrderedDict):
+    def __init__(self, capacity):
+        self.capacity = capacity
+
+    def get(self, key):
+        if key not in self:
+            return - 1
+        
+        self.move_to_end(key)
+        return self[key]
+
+    def put(self, key, value):
+        if key in self:
+            self.move_to_end(key)
+        self[key] = value
+        if len(self) > self.capacity:
+            self.popitem(last = False) # FIFO order if false
 
