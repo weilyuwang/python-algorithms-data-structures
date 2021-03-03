@@ -43,24 +43,6 @@ class Solution:
             
     #     return rob2
     
-    # def rob(self, nums: List[int]) -> int:
-    #     rob1, rob2, result = 0, 0, 0
-        
-    #     # [rob1, rob2, n, n+1, ...]
-        
-    #     for i in range(len(nums)):
-    #         if i == 0:
-    #             result = rob1 = nums[0]
-    #         elif i == 1:
-    #             result = rob2 = max(nums[0], nums[1])
-    #         else:
-    #             # dp[i] = max(nums[i] + dp[i-2], dp[i-1])
-    #             result = max(nums[i] + rob1, rob2)
-    #             rob1 = rob2
-    #             rob2 = result
-            
-    #     return result
-    
     def rob(self, nums: List[int]) -> int:
         
         # if nums length <= 2: return the result directly
@@ -72,7 +54,6 @@ class Solution:
         dp = list(range(len(nums)))
         dp[0] = nums[0]
         dp[1] = max(nums[0], nums[1])
-        
         
         for i in range(2, len(nums)):
             dp[i] = max(nums[i] + dp[i-2], dp[i-1])
