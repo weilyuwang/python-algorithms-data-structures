@@ -17,12 +17,7 @@ class Solution:
         if not root:
             return None
         
-        #swap the children
-        tmp = root.left
-        root.left = root.right
-        root.right = tmp
-        
-        self.invertTree(root.left)
-        self.invertTree(root.right)
+        # Neat python code!
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         
         return root
