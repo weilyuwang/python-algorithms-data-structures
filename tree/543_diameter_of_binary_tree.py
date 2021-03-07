@@ -20,14 +20,14 @@ class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
         self.res = 0
         
-        def depth(root):
+        def height(root):
             if not root:
-                return 0
-            left = depth(root.left)
-            right = depth(root.right)
-            self.res = max(self.res, left + right)
+                return -1
+            left = height(root.left)
+            right = height(root.right)
+            self.res = max(self.res, left + right + 2)
             
             return 1 + max(left, right)
         
-        depth(root)
+        height(root)
         return self.res
