@@ -47,7 +47,9 @@ class Solution:
                 res.append(curStr)
                 return
             for c in digitToChars[digits[i]]:
-                backtrack(i + 1, curStr + c)
+                curStr += c
+                backtrack(i + 1, curStr)
+                curStr = curStr[:-1]
                 
         if digits:
             backtrack(0, "")
