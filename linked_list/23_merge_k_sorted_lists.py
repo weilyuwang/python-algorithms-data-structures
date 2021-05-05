@@ -63,51 +63,36 @@ class Solution:
 
         return dummy_head.next
 
+        
+    # O(logK) Divide and Conquer
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        """
-        Leverage Priority Queue to optimize the comparison process
-
-        Time complexity : O(Nlogk) 
-        where N is the total number of nodes, k is the number of lists.
-
-        Space complexity : O(N).
-        """
-
-        """
-        Note that in the event that two or more of the lists have the same val,
-        the queue module will compare the second element in the priority queue which is a ListNode object 
-        (and this is not a comparable type).
-
-        To solve for this issue, instead of push (node.val, node) into the queue,
-        we can store (node.val, list_index, node) to account for this edge case,
-        - i.e. use the list index as a tie-breaker.
-        """
-
-        # Keep a priority queue of size k (# of lists)
-        # put() & get() both take O(logk)
-        pq = PriorityQueue()
-        dummy_head = ListNode(-1)
-        cur = dummy_head
-
-        idx = 0
-
-        for l in lists:
-            if l:
-                # Put the top element of each list onto the priority queue
-                pq.put((l.val, idx, l))
-                idx += 1
-
-        while not pq.empty():
-            # Get the smallest element from priority queue
-            val, _, node = pq.get()  # we dont care about the index of the list
-
-            cur.next = ListNode(val)
-            cur = cur.next
-
-            # the next node to push onto pq is node.next
-            node = node.next
-            if node:
-                pq.put((node.val, idx, node))
-                idx += 1
-
-        return dummy_head.next
+            def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists or len(lists) == 0:
+            return None
+        while len(lists) > 1:
+            mergedLists = []
+            
+            for i in range(0, len(lists), 2):
+                l1 = lists[i]
+                l2 = lists[i + 1] if (i + 1) < len(lists) else None
+                mergedLists.append(self.merge2Lists(l1, l2))
+                
+            lists = mergedLists
+            
+        return lists[0]
+         
+    def merge2Lists(self, l1, l2):
+        dummy = tail = ListNode(0)
+        while l1 and l2:
+            if l1.val <= l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        if l1:
+            tail.next=l1
+        else:
+            tail.next=l2
+        return dummy.next
