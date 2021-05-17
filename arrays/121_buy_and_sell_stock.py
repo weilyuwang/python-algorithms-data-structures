@@ -26,7 +26,7 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices):
         max_profit = 0
         min_price = float('inf')
 
