@@ -57,16 +57,17 @@ Hash map + doubly linked list
 The problem can be solved with a hashmap that keeps track of the keys and its values in the double linked list. 
 That results in O(1) time for put and get operations and allows to remove the first added node in O(1) time as well.
 '''
+
+
+class Node:
+    def __init__(self, key, val):
+        self.key, self.val = key, val
+
+        # pseudo head and pseudo tail to mark the boundary, 
+        # so that we don't need to check the null node during the update.
+        self.prev = self.next = None
+        
 class LRUCacheWithHashMapAndDLL:
-
-    class Node:
-        def __init__(self, key, val):
-            self.key, self.val = key, val
-
-            # pseudo head and pseudo tail to mark the boundary, 
-            # so that we don't need to check the null node during the update.
-            self.prev = self.next = None
-                
 
     def __init__(self, capacity: int):
         self.cap = capacity
@@ -116,6 +117,7 @@ There is a structure called ordered dictionary, it combines behind both hashmap 
 In Python this structure is called OrderedDict and in Java LinkedHashMap.
 '''
 from collections import OrderedDict
+
 
 class LRUCacheWithOrderedDict(OrderedDict):
     def __init__(self, capacity):
