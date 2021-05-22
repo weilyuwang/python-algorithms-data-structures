@@ -27,6 +27,9 @@ n == grid[i].length
 
 '''
 
+from typing import List
+
+
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
         # dp[i][j] represents the minimum sum of the path 

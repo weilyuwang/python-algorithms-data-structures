@@ -26,7 +26,7 @@ Output: false
 '''
 
 class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+    def wordBreak(self, s, wordDict):
         word_set = set(wordDict)
         dp = [False] * (len(s) + 1)
         dp[0] = True

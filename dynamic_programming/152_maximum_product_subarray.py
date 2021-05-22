@@ -18,7 +18,7 @@ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 '''
 
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
+    def maxProduct(self, nums):
         if len(nums) == 0:
             return 0
         
