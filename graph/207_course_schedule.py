@@ -31,8 +31,12 @@ All the pairs prerequisites[i] are unique.
 '''
 
 
+from collections import defaultdict
+from typing import List
+
+
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def canFinishDFS(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
         preMap = {i: [] for i in range(numCourses)}
         
@@ -63,3 +67,28 @@ class Solution:
         for course in range(numCourses):
             if not dfs(course): return False
         return True
+
+    '''
+    Topological Sort
+    '''
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        inGoing = defaultdict(set)
+        outGoing = defaultdict(set)
+
+        for i, j in prerequisites:
+            # j is prerequisite of i (j -> i)
+            inGoing[i].add(j)
+            outGoing[j].add(i)
+
+        # len(inGoing[i]) == 0 means course i has no prerequisites
+        canTake = [i for i in range(numCourses) if len(inGoing[i]) == 0]
+        taken = 0
+        while len(canTake) > 0:
+            take = canTake.pop()
+            taken += 1
+            for nextCourse in outGoing[take]: # take -> nextCourse
+                inGoing[nextCourse].remove(take)
+                if len(inGoing[nextCourse]) == 0:
+                    canTake.append(nextCourse)
+                    
+        return taken == numCourses

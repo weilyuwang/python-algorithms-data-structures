@@ -31,6 +31,9 @@ All the pairs prerequisites[i] are unique.
 '''
 
 
+from typing import List
+
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
@@ -63,3 +66,4 @@ class Solution:
         for course in range(numCourses):
             if not dfs(course): return False
         return True
+
