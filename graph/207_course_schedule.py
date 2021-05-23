@@ -70,6 +70,9 @@ class Solution:
 
     '''
     Topological Sort
+    Kahn's Algorithm
+    Space: O(E + V)
+    Time: O(E + V) - We visited every single node and edge once
     '''
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         inGoing = defaultdict(set)
@@ -90,5 +93,5 @@ class Solution:
                 inGoing[nextCourse].remove(take)
                 if len(inGoing[nextCourse]) == 0:
                     canTake.append(nextCourse)
-                    
+
         return taken == numCourses
