@@ -46,17 +46,30 @@ class Solution:
         we have to search every previously-occurring edge of the graph.
         '''
         graph = DefaultDict(set)
-        seen = set()
 
-        def dfs(source, target):
+        def dfs(source, target, seen):
+            # Return True if source and target are connected
             if source not in seen:
                 seen.add(source)
                 if source == target: return True
-                return any(dfs(neighbor, target) for neighbor in graph[source])
+                return any(dfs(neighbor, target, seen) for neighbor in graph[source])
+
+        '''
+        def dfs(source, target, seen):
+            if source not in seen:
+                seen.add(source)
+                if source == target: 
+                    return True
+                for neighbor in graph[source]:
+                    if dfs(neighbor, target, seen):
+                        return True
+            return False
+        '''
 
         for u, v in edges:
-            seen.clear() 
-            if u in graph and v in graph and dfs(u, v):
-                return u, v
+            if u in graph and v in graph and dfs(u, v, set()):
+                # if node u and v already in the graph and are connected, 
+                # then the edge u-v is definitely redundant
+                return [u, v]
             graph[u].add(v)
             graph[v].add(u)
